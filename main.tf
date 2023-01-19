@@ -1,31 +1,13 @@
 provider "aws" {
-  region  = "eu-west-3"
-  access_key = "AKIA6N5PSL27LD4RL6DI"
-  secret_key = "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"
+  region = "us-east-1"
 }
 
-resource "aws_vpc" "mainVPC" {
-  cidr_block       = "10.0.0.0/16"
-  tags = { Name = "mainVPCTag" }
-}
+resource "aws_instance" "testing" {
+  ami           = "ami-0fe0b2cf0e1f25c8a" # eu-west-1
+  instance_type = "t2.micro"
 
-variable "subnet_cidr_block" {
-  description = "subnet cidr block"
+  network_interface {
+    network_interface_id = aws_network_interface.testing.id
+    device_index         = 0
+  }
 }
-resource "aws_subnet" "mainSubnet" {
-  vpc_id = aws_vpc.mainVPC.id
-  cidr_block =  var.subnet_cidr_block
-  availability_zone = "eu-west-3a"
-  tags = { Name = "MainSubnetTag"  }
-}
-
-output "mainvpc_id" {
-  value = aws_vpc.mainVPC.id
-}
-output "mainvpcsubnet_id" {
-  value = aws_subnet.mainSubnet.id
-}
-
-#terraform init
-#terraform plan
-#terraform apply
