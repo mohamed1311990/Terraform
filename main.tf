@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "testing" {
-  ami           = "ami-0fe0b2cf0e1f25c8a" # eu-west-1
+  ami           = "ami-08c149f9b2ace933d" # eu-west-1
   instance_type = "t2.micro"
 
 }
